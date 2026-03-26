@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --rose: #c2185b;
+  --rose-light: #f8bbd0;
+  --cream: #faf7f4;
+  --ink: #2d1f1f;
+  --blush: #e8a4b8;
+}
+
+@layer base {
+  html { font-family: 'Jost', sans-serif; -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--ink); }
+  h1,h2,h3,h4 { font-family: 'Cormorant Garamond', Georgia, serif; }
+  * { box-sizing: border-box; }
+}
+
+@layer components {
+  /* ── Store ─────────────────── */
+  .btn-rose {
+    @apply bg-rose-600 hover:bg-rose-700 text-white font-medium px-6 py-3 
+           rounded-full transition-all duration-200 flex items-center gap-2
+           cursor-pointer tracking-wide text-sm;
+  }
+  .btn-ghost {
+    @apply border border-rose-600 text-rose-600 hover:bg-rose-50 font-medium
+           px-6 py-3 rounded-full transition-all duration-200 flex items-center gap-2
+           cursor-pointer tracking-wide text-sm;
+  }
+  .btn-white {
+    @apply bg-white text-rose-600 font-semibold px-6 py-3 rounded-full
+           hover:bg-rose-50 transition-all duration-200 flex items-center gap-2 text-sm;
+  }
+
+  /* Product card */
+  .product-card {
+    @apply bg-white rounded-2xl overflow-hidden
+           hover:shadow-[0_8px_40px_rgba(194,24,91,0.12)]
+           transition-all duration-300 cursor-pointer;
+    border: 1px solid rgba(232,164,184,0.2);
+  }
+  .product-card:hover { transform: translateY(-4px); }
+
+  /* Tag / badge */
+  .tag {
+    @apply text-xs font-medium px-3 py-1.5 rounded-full tracking-wide;
+  }
+
+  /* ── Admin ─────────────────── */
+  .admin-card {
+    @apply bg-white rounded-2xl border border-gray-100 p-5 shadow-sm;
+  }
+  .admin-sidebar-link {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium
+           text-white/60 hover:text-white hover:bg-white/10
+           transition-all duration-200 cursor-pointer;
+  }
+  .admin-sidebar-link.active { @apply text-white bg-white/15; }
+  .admin-btn {
+    @apply bg-rose-600 hover:bg-rose-700 text-white text-xs font-medium
+           px-4 py-2 rounded-xl flex items-center gap-2 transition-all cursor-pointer;
+  }
+  .admin-input {
+    @apply w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm
+           focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-transparent
+           bg-white placeholder-gray-400 transition-all;
+  }
+  .admin-select { @apply admin-input; }
+
+  /* Skeleton loader */
+  .skeleton {
+    @apply bg-gradient-to-r from-gray-100 via-gray-50 to-gray-100
+           bg-[length:200%_100%] animate-shimmer rounded-xl;
+  }
+
+  /* Cart drawer */
+  .cart-overlay { @apply fixed inset-0 bg-black/40 z-40 animate-fade-in; }
+  .cart-drawer  {
+    @apply fixed top-0 right-0 h-full w-full sm:w-96 bg-white z-50
+           shadow-2xl flex flex-col animate-slide-in;
+  }
+
+  /* Quantity control */
+  .qty-btn {
+    @apply w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center
+           text-sm font-medium hover:border-rose-400 hover:text-rose-600 transition-all;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #f4c6d5; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #c2185b; }
+
+/* Staggered animation helpers */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.10s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.20s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.30s; }
+
+/* Admin badges */
+.badge-pendiente  { @apply bg-amber-100  text-amber-700  text-xs px-2.5 py-1 rounded-full font-medium; }
+.badge-en_proceso { @apply bg-blue-100   text-blue-700   text-xs px-2.5 py-1 rounded-full font-medium; }
+.badge-listo      { @apply bg-emerald-100 text-emerald-700 text-xs px-2.5 py-1 rounded-full font-medium; }
+.badge-entregado  { @apply bg-gray-100   text-gray-600   text-xs px-2.5 py-1 rounded-full font-medium; }
+.badge-cancelado  { @apply bg-red-100    text-red-600    text-xs px-2.5 py-1 rounded-full font-medium; }
