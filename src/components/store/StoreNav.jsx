@@ -25,10 +25,10 @@ export default function StoreNav({ onSearchOpen }) {
 
         <div className="max-w-7xl mx-auto px-5 sm:px-8 flex items-center h-16 gap-4">
 
-          {/* Logo usar logo.png en la raiz del proyecto*/}
+          {/* Logo se sirve desde la carpeta /public para Netlify */}
           <Link to="/" className="flex items-center space-x-2">
             <img 
-              src="/../../logo-xiomi.png" 
+              src="/logo-xiomi.png" 
               alt={STORE_NAME} 
               className="h-10 w-auto" 
             />
