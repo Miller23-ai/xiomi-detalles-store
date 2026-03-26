@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { supabase } from '../../lib/supabase'
 import { Plus, Pencil, Trash2, Search, Image, Upload, X, Eye, EyeOff } from 'lucide-react'
+import imageCompression from 'browser-image-compression'
 
 const empty = { nombre:'', descripcion:'', categoria:'', precio_venta:'', costo_estimado:'', stock:'0', activo:true, photo_url:'' }
 
@@ -70,8 +71,16 @@ export default function AdminProductos() {
       id = data?.id
     }
     if (id && photoFile) {
+      let fileToUpload = photoFile
+      try {
+        const options = { maxSizeMB: 0.5, maxWidthOrHeight: 1024, useWebWorker: true }
+        fileToUpload = await imageCompression(photoFile, options)
+      } catch (error) {
+        console.error('Error comprimiendo la imagen:', error)
+      }
+      
       const ext = photoFile.name.split('.').pop()
-      await supabase.storage.from('productos').upload(`${id}.${ext}`, photoFile, { upsert:true })
+      await supabase.storage.from('productos').upload(`${id}.${ext}`, fileToUpload, { upsert:true })
       const { data:{ publicUrl } } = supabase.storage.from('productos').getPublicUrl(`${id}.${ext}`)
       await supabase.from('productos').update({ photo_url: publicUrl }).eq('id', id)
     }
